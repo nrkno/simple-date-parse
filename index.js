@@ -31,7 +31,7 @@ export default function parse (parse, from) {
   const text = String(parse).toLowerCase()
   const date = new Date(isFinite(from) ? from : Date.now())
   const name = {year: 'FullYear', month: 'Month', week: 'Date', day: 'Date', hour: 'Hours', minute: 'Minutes', second: 'Seconds'}
-  const math = /([+-]\s*\d+)\s*(second|minute|hour|day|month|year)|(mon)|(tue)|(wed)|(thu)|(fri)|(sat)|(sun)/g
+  const math = /([+-]\s*\d+)\s*(second|minute|hour|day|week|month|year)|(mon)|(tue)|(wed)|(thu)|(fri)|(sat)|(sun)/g
   const [, year = 'y', month = 'm', day = 'd'] = text.match(/([-\dy]+)[-/.]([\dm]{1,2})[-/.]([\dd]{1,2})/) || []
   const [, hour = 'h', minute = 'm', second = 's'] = text.match(/([\dh]{1,2}):([\dm]{1,2}):?([\ds]{1,2})?/) || []
   let match = {year, month, day, hour, minute, second}
