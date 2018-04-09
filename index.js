@@ -29,7 +29,7 @@ export default function parse (parse, from) {
   if (isFinite(parse)) return new Date(Number(parse)) // Allow timestamps and Date instances
 
   const text = String(parse).toLowerCase()
-  const date = new Date(isFinite(from) ? from : Date.now())
+  const date = new Date(isFinite(from) ? Number(from) : Date.now())
   const name = {year: 'FullYear', month: 'Month', week: 'Date', day: 'Date', hour: 'Hours', minute: 'Minutes', second: 'Seconds'}
   const math = /([+-]\s*\d+)\s*(second|minute|hour|day|week|month|year)|(mon)|(tue)|(wed)|(thu)|(fri)|(sat)|(sun)/g
   const [, year = 'y', month = 'm', day = 'd'] = text.match(/([-\dy]+)[-/.]([\dm]{1,2})[-/.]([\dd]{1,2})/) || []
