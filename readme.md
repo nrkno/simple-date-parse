@@ -13,7 +13,7 @@ import parse from '@nrk/simple-date-parse'
 
 ## Usage
 ```js
-parse(Date|Number|String, [Number|Date]) // => Datepicker
+parse(Date|Number|String, [Number|Date]) // => Date
 
 // 0, '', null = January 1, 1970, 00:00:00 UTC
 // now = now
