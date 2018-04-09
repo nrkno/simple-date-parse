@@ -1,0 +1,10 @@
+.DS_Store
+.npm
+.vscode
+.idea
+node_modules/
+npm-debug*
+yarn-error*
+*.code-workspace
+*.min.js
+*.js.map
