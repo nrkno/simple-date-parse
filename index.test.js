@@ -1,4 +1,4 @@
-/* globals beforeEach, describe, expect, test */
+/* globals describe, expect, test */
 const parse = require('./index.min.js')
 
 describe('parse', () => {
