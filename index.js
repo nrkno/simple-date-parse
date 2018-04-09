@@ -3,7 +3,8 @@
 // now = now
 // + 1 second(s)
 // - 1 minute(s)
-// + 1 day(s)
+// + 1 day(s) relative to "from" ("from" defaults to Date.now())
+// now + 1 day(s) relative to Date.now(), even if "from" is provided
 // - 1 week(s)
 // + 1 month(s)
 // - 1 year(s)
@@ -29,7 +30,7 @@ export default function parse (parse, from) {
   if (isFinite(parse)) return new Date(Number(parse)) // Allow timestamps and Date instances
 
   const text = String(parse).toLowerCase()
-  const date = new Date(isFinite(from) ? Number(from) : Date.now())
+  const date = new Date((isFinite(from) && text.indexOf('now') === -1) ? Number(from) : Date.now())
   const name = {year: 'FullYear', month: 'Month', week: 'Date', day: 'Date', hour: 'Hours', minute: 'Minutes', second: 'Seconds'}
   const math = /([+-]\s*\d+)\s*(second|minute|hour|day|week|month|year)|(mon)|(tue)|(wed)|(thu)|(fri)|(sat)|(sun)/g
   const [, year = 'y', month = 'm', day = 'd'] = text.match(/([-\dy]+)[-/.]([\dm]{1,2})[-/.]([\dd]{1,2})/) || []
