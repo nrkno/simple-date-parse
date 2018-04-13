@@ -30,8 +30,8 @@
 
 const DATE = {year: 'FullYear', month: 'Month', week: 'Date', day: 'Date', hour: 'Hours', minute: 'Minutes', second: 'Seconds'}
 const ADD = /([+-]\s*\d+)\s*(second|minute|hour|day|week|month|year)|(mon)|(tue)|(wed)|(thu)|(fri)|(sat)|(sun)/g
-const YMD = /([-\dy]+)[-/.]([\dm]{1,2})[-/.]([\dd]{1,2})/
-const HMS = /([\dh]{1,2}):([\dm]{1,2}):?([\ds]{1,2})?/
+const YMD = /([-\dy]+)[-/.]([\dm]+)[-/.]([\dd]+)/
+const HMS = /([\dh]+):([\dm]+):?([\ds]+)?/
 
 export default function parse (parse, from) {
   if (isFinite(parse)) return new Date(Number(parse)) // Allow timestamps and Date instances
