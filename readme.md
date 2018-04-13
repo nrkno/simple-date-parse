@@ -40,6 +40,8 @@ parse(Date|Number|String, [Number|Date]) // => Date
 // -181 + y0 = -80
 // -181 + y0yy = -81
 // -181 + y0 = -180
+// y-0-0 = first day of year (keeps month within year and day within month)
+// y-4-90 = last day of april (keeps day within month)
 ```
 
 
