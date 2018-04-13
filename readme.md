@@ -13,35 +13,38 @@ import parse from '@nrk/simple-date-parse'
 
 ## Usage
 ```js
-parse(Date|Number|String, [Number|Date]) // => Date
+parse(
+  Date|Number|String, // Date to parse.
+  [Number|Date]       // Relative to this date. Optional and defaults to Date.now()
+) // => Date
 
-// 0, '', null = January 1, 1970, 00:00:00 UTC
-// now = now
-// + 1 second(s)
-// - 1 minute(s)
-// + 1 day(s)
-// - 1 week(s)
-// + 1 month(s)
-// - 1 year(s)
-// 00:00 - 1 year(s)
-// yyyy-mm-01 + 1 year
-// monday + 1 days
-// tue + 1 week(s)
-// friday = friday this week, can be in future and past
-// monday - 3 days = friday guaranteed last week
-// sunday + 5 days = friday guaranteed next week
-// 2018-01-dd + 1 week
-// yyyy-mm-01 + 1 month(s) - 1 day = end current month
-// yy00-01-01 - 100 year(s)
-// 100-1-1 - 1st of January year 100
-// -100-1-1 - 1st of January year -100
-// -081 + y00 = 0
-// -181 + y0y = -101
-// -181 + y0 = -80
-// -181 + y0yy = -81
-// -181 + y0 = -180
-// y-0-0 = first day of year (keeps month within year and day within month)
-// y-4-90 = last day of april (keeps day within month)
+// Examples:
+parse(0|''|null) // => Date: January 1, 1970, 00:00:00 UTC
+parse('now') // => Date: Date.now()
+parse('+ 1 second') // => 1 second in the future
+parse('- 2 minutes') // => 2 minutes ago
+parse('+ 1 day') // => tomorrow
+parse('- 2 weeks') // => today, 2 weeks ago
+parse('+ 1 month') // => today, 1 month in the future
+parse('- 2 years') // => today, 2 years ago
+parse('00:00 - 1 year') // => at midnight one year ago
+parse('yyyy-mm-01 + 1 year') // => first day of current month next year
+parse('mon + 1 days') // => Tuesday this week
+parse('friday') // => Friday this week, can be in future and past
+parse('friday - 1 week') // => Friday guaranteed last week
+parse('friday + 1 week') // => Friday guaranteed next week
+parse('2018-01-dd + 1 week') // => Current day of month, but in January 2018 plus one week
+parse('yyyy-mm-01 + 1 month(s) - 1 day') // => end current month
+parse('yy00-01-01 - 100 year(s)') // => 1st of January this century minus 100 years
+parse('100-1-1') // => 1st of January year 100
+parse('-100-1-1') // => 1st of January year -100
+parse('y00', new Date(-081, 1, 1)).getFullYear() // =>  0
+parse('y0y', new Date(-081, 1, 1)).getFullYear() // => -101
+parse('y0', new Date(-081, 1, 1)).getFullYear() // => -80
+parse('y0yy', new Date(-081, 1, 1)).getFullYear() // => -81
+parse('y0', new Date(-081, 1, 1)).getFullYear() // => -180
+parse('y-0-0')  // => first day of year (keeps month within year and day within month)
+parse('y-4-90') // => last day of April (keeps day within month)
 ```
 
 
