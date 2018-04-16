@@ -102,10 +102,16 @@ describe('parse', () => {
     beforeEach(() => {
       from = new Date('Sat Apr 15 2000 12:44:03 GMT+0200 (CEST)')
     })
-    test.skip('should be able to use "from" parameter to set a date', () => {
+    // When sending empty date/string, zero or null it actually sets the date under the hood.
+    test('should ignore "from" parameter when setting empty date', () => {
       const date = parse('', from)
-      expect(date.getTime()).toBe(from.getTime())
+      const expected = new Date(null)
+
+      expect(date.getFullYear()).toBe(expected.getFullYear())
+      expect(date.getMonth()).toBe(expected.getMonth())
+      expect(date.getDate()).toBe(expected.getDate())
     })
+
     test('if "now" is provided parse should ignore the "from" parameter', () => {
       const date = parse('now', from)
       const now = new Date()
