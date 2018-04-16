@@ -98,7 +98,81 @@ describe('parse', () => {
   })
 
   describe('"from" dates', () => {
+    let from
+    beforeEach(() => {
+      from = new Date('Sat Apr 15 2000 12:44:03 GMT+0200 (CEST)')
+    })
+    test.skip('should be able to use "from" parameter to set a date', () => {
+      const date = parse('', from)
+      expect(date.getTime()).toBe(from.getTime())
+    })
+    test('if "now" is provided parse should ignore the "from" parameter', () => {
+      const date = parse('now', from)
+      const now = new Date()
+      expect(date.getFullYear()).not.toBe(2000)
+      expect(date.getFullYear()).toBe(now.getFullYear())
+    })
+  })
 
+  describe('combining operators', () => {
+    let from
+    beforeEach(() => {
+      from = new Date('Sun Apr 15 2018 12:44:03 GMT+0200 (CEST)')
+    })
+
+    test('should be able to subtract a day and add a week', () => {
+      const date = parse('- 1 day + 1 week', from)
+      const expected = new Date(from)
+      expected.setDate(expected.getDate() + 6)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
+
+    test('should be able to add a day and subtract a week', () => {
+      const date = parse('+ 1 day - 1 week', from)
+      const expected = new Date(from)
+      expected.setDate(expected.getDate() - 6)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
+
+    test('should be able to do multiple operations', () => {
+      const date = parse('+ 1 year - 5 years - 12 months + 2 days - 3 weeks', from)
+      const expected = new Date(from)
+      expected.setFullYear(expected.getFullYear() - 5)
+      expected.setDate(expected.getDate() - 19)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
+
+    test('should be able to set specific day of week and add days', () => {
+      const date = parse('monday + 13 days', from)
+      const expected = new Date(from)
+      expected.setDate(expected.getDate() + 7)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
+
+    test('should be able to add days and get a specific weekday', () => {
+      const date = parse('+ 13 days monday', from)
+      const expected = new Date(from)
+      expected.setDate(expected.getDate() + 8)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
+
+    test('should be able to set specific date and add months', () => {
+      const date = parse('2004-10-05 + 2 months', from)
+      const expected = new Date(from)
+      expected.setFullYear(2004)
+      expected.setMonth(9 + 2)
+      expected.setDate(5)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
+
+    test('should be able to set specific date and subtract months', () => {
+      const date = parse('2004-10-05 - 2 months', from)
+      const expected = new Date(from)
+      expected.setFullYear(2004)
+      expected.setMonth(9 - 2)
+      expected.setDate(5)
+      expect(date.getTime()).toBe(expected.getTime())
+    })
   })
 
   describe('yyyy-mm-dd format', () => {
@@ -149,7 +223,7 @@ describe('parse', () => {
       expect(date.getDate()).toBe(now.getDate())
     })
 
-    test('yy01-mm-dd should get the current month and date, but set month to December', () => {
+    test('yy01-mm-dd should set the last two digits to 01 and the first two digits to the first two digits of the current year', () => {
       const date = parse('yy01-mm-dd')
 
       expect(date.getFullYear().toString().substr(0, 2)).toBe(now.getFullYear().toString().substr(0, 2))
@@ -158,12 +232,31 @@ describe('parse', () => {
       expect(date.getDate()).toBe(now.getDate())
     })
 
-    test('y25y-mm-dd should get the current year and date, but set month to December', () => {
+    test('y25y-mm-dd should set the two middle digits to 25 and the first and last digits to the first and last digits of the current year', () => {
       const date = parse('y25y-mm-dd')
 
       expect(date.getFullYear().toString().charAt(0)).toBe(now.getFullYear().toString().charAt(0))
       expect(date.getFullYear().toString().charAt(3)).toBe(now.getFullYear().toString().charAt(3))
       expect(date.getFullYear().toString().substr(1, 2)).toBe('25')
+      expect(date.getMonth()).toBe(now.getMonth())
+      expect(date.getDate()).toBe(now.getDate())
+    })
+
+    test('should be able to set dates before year 0', () => {
+      const date = parse('-20yy-mm-dd')
+
+      expect(date.getFullYear().toString()[3]).toBe(now.getFullYear().toString()[2])
+      expect(date.getFullYear().toString()[4]).toBe(now.getFullYear().toString()[3])
+      expect(date.getFullYear().toString().substr(0, 3)).toBe('-20')
+      expect(date.getMonth()).toBe(now.getMonth())
+      expect(date.getDate()).toBe(now.getDate())
+    })
+
+    test('should be able to set dates before year 0 and add more years', () => {
+      const date = parse('-20yy-mm-dd + 2500years')
+
+      // Should be year 4xx where xx = 100 - yy, where are the digits from 20yy
+      expect(date.getFullYear().toString()[0]).toBe('4')
       expect(date.getMonth()).toBe(now.getMonth())
       expect(date.getDate()).toBe(now.getDate())
     })
