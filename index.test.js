@@ -235,8 +235,8 @@ describe('parse', () => {
     test('y25y-mm-dd should set the two middle digits to 25 and the first and last digits to the first and last digits of the current year', () => {
       const date = parse('y25y-mm-dd')
 
-      expect(date.getFullYear().toString().charAt(0)).toBe(now.getFullYear().toString().charAt(0))
-      expect(date.getFullYear().toString().charAt(3)).toBe(now.getFullYear().toString().charAt(3))
+      expect(date.getFullYear().toString()[0]).toBe(now.getFullYear().toString()[0])
+      expect(date.getFullYear().toString()[3]).toBe(now.getFullYear().toString()[3])
       expect(date.getFullYear().toString().substr(1, 2)).toBe('25')
       expect(date.getMonth()).toBe(now.getMonth())
       expect(date.getDate()).toBe(now.getDate())
