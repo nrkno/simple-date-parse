@@ -18,8 +18,10 @@ parse(
   [Number|Date]       // Relative to this date. Optional and defaults to Date.now()
 ) // => Date
 
+
 // Examples:
 parse(0|''|null) // => Date: January 1, 1970, 00:00:00 UTC
+parse('foobar') // => Date: Date.now() (any invalid keywords are ignored)
 parse('now') // => Date: Date.now()
 parse('+ 1 second') // => 1 second in the future
 parse('- 2 minutes') // => 2 minutes ago
