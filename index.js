@@ -1,33 +1,3 @@
-// [date|timestamp|string], [timestamp|Date]
-// 0, '', null = January 1, 1970, 00:00:00 UTC
-// now = now
-// + 1 second(s)
-// - 1 minute(s)
-// + 1 day(s) relative to "from" ("from" defaults to Date.now())
-// now + 1 day(s) relative to Date.now(), even if "from" is provided
-// - 1 week(s)
-// + 1 month(s)
-// - 1 year(s)
-// 00:00 - 1 year(s)
-// yyyy-mm-01 + 1 year
-// monday + 1 days
-// tue + 1 week(s)
-// friday = friday this week, can be in future and past
-// monday - 3 days = friday guaranteed last week
-// sunday + 5 days = friday guaranteed next week
-// 2018-01-dd + 1 week
-// yyyy-mm-01 + 1 month(s) - 1 day = end current month
-// yy00-01-01 - 100 year(s)
-// 100-1-1 - 1st of January year 100
-// -100-1-1 - 1st of January year -100
-// -081 + y00 = 0
-// -181 + y0y = -101
-// -181 + y0 = -80
-// -181 + y0yy = -81
-// -181 + y0 = -180
-// y-0-0 = first day of year (keeps month within year and day within month)
-// y-4-90 = last day of april (keeps day within month)
-
 const DATE = {year: 'FullYear', month: 'Month', week: 'Date', day: 'Date', hour: 'Hours', minute: 'Minutes', second: 'Seconds'}
 const ADD = /([+-]\s*\d+)\s*(second|minute|hour|day|week|month|year)|(mon)|(tue)|(wed)|(thu)|(fri)|(sat)|(sun)/g
 const YMD = /([-\dy]+)[-/.]([\dm]+)[-/.]([\dd]+)/

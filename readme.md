@@ -50,6 +50,21 @@ parse('y-4-90') // => last day of April (keeps day within month)
 ```
 
 
+## FAQ
+### Why did you make `simple-date-parse`?
+
+There is already a great variety of superb natural language date parsing libraries in javascript, but a great deal of them are quite forgiving and flexible in terms for formatting (for instance allowing both day before and month, understanding both "tomorrow" and "+ 1 day" etc.). Such libraries are wonderful when you are not in control of the input format, but they also comes with lots of kilobytes and needs for config for internationalisation.
+
+`simple-date-parse` is more simple and strict in terms of format (allowing only `+/-` `year|month|week|day|hour|minute|second`, `mon|tue|wed|tur|sat|sun` and `y-m-d`), making parsing blazing fast and super lightweight (*1.27KB* gzipped). Use `simple-date-parse` generating interfaces like `<button value="+ 1 day">Tomorrow</button>` or other situations with controlled text input.
+
+
+### When should I not use `simple-date-parse`?
+If you are doing date manipulation, we recommend a functional approaches provided by libraries such as [Day.JS](https://github.com/xx45/dayjs), [Moment.js](https://momentjs.com/) or [date-fns](https://date-fns.org/). For more advanced natural language date parsing, checkout [SugarJS](https://sugarjs.com/dates/#/Parsing), [DateJS](https://github.com/datejs/Datejs), [Sherlock](https://github.com/neilgupta/Sherlock) or [Chrono](https://github.com/wanasit/chrono).
+
+### Does `simple-date-parse` handle timezones, leap year, summertime etc.?
+
+**TL;DR: yes**. Despite popular belief, the native [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object in Javascript is quite intelligent. Under the hood `simple-date-parse` converts operations to native function such as `+ 1 month === setMonth(date.getMonth() + 1)`. This avoid crazy calculations (such as `year % 4 === leap year` or `new Date().getTime() + 1000 * 60 * 60 24 * 10 === 10 days from now`) and lets native `Date` to do the heaving lifting.
+
 ## Local development
 First clone `@nrk/simple-date-parse` and install its dependencies:
 
