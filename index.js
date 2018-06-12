@@ -11,8 +11,7 @@ export default function parse (parse, from) {
   const [, year = 'y', month = 'm', day = 'd'] = text.match(YMD) || []
   const [, hour = 'h', minute = 'm', second = 's'] = text.match(HMS) || []
   let match = {year, month, day, hour, minute, second}
-  
-  date.setMilliseconds(0)
+
   Object.keys(match).forEach((unit) => {
     const move = unit === 'month' ? 1 : 0 // Month have zero based index
     const prev = `${date[`get${DATE[unit]}`]() + move}` // Shift to consistent index
