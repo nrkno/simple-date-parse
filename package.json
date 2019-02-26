@@ -2,7 +2,7 @@
   "name": "@nrk/simple-date-parse",
   "homepage": "https://github.com/nrkno/simple-date-parse",
   "author": "NRK <opensource@nrk.no> (https://www.nrk.no/)",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.min.js",
   "files": "index.min.js",
   "license": "MIT",
