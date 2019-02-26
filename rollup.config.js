@@ -1,6 +1,7 @@
-const pkg = require('./package.json')
-const buble = require('rollup-plugin-buble')
-const uglify = require('rollup-plugin-uglify')
+import pkg from './package.json'
+import buble from 'rollup-plugin-buble'
+import serve from 'rollup-plugin-serve'
+import { uglify } from 'rollup-plugin-uglify'
 
 export default {
   input: pkg.main.replace('.min.', '.'),
@@ -10,5 +11,9 @@ export default {
     name: 'simpleDateParse',
     sourcemap: true
   },
-  plugins: [buble(), uglify()]
+  plugins: [
+    buble(),
+    uglify(),
+    !process.env.ROLLUP_WATCH || serve()
+  ]
 }

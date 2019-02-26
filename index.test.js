@@ -95,6 +95,20 @@ describe('parse', () => {
 
       expect(parsePrev.getTime()).toBe(expected)
     })
+    test('should round down to last day of month when adding a month', () => {
+      const parsePrev = parse('2018-08-31 + 1 month')
+      const expected = new Date('2018-09-30')
+
+      expect(parsePrev.getMonth()).toBe(expected.getMonth())
+      expect(parsePrev.getDate()).toBe(expected.getDate())
+    })
+    test('should round down to last day of month when adding a year from leap year', () => {
+      const parsePrev = parse('2020-02-29 + 1 year')
+      const expected = new Date('2021-02-28')
+
+      expect(parsePrev.getMonth()).toBe(expected.getMonth())
+      expect(parsePrev.getDate()).toBe(expected.getDate())
+    })
   })
 
   describe('"from" dates', () => {
