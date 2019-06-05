@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-npm i @nrk/simple-date-parse --save
+npm install @nrk/simple-date-parse
 ```
 ```js
 import parse from '@nrk/simple-date-parse'
@@ -87,5 +87,5 @@ git push origin feature/my-changes
 # and assign another developer to review your code
 ```
 
-> NOTE! Please also make sure to keep commits small and clean (that the commit message actually refers to the updated files).  
+> NOTE! Please also make sure to keep commits small and clean (that the commit message actually refers to the updated files).
 > Stylistically, make sure the commit message is **Capitalized** and **starts with a verb in the present tense** (for example `Add minification support`).
