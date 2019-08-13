@@ -14,6 +14,6 @@ export default {
   plugins: [
     buble(),
     uglify(),
-    !process.env.ROLLUP_WATCH || serve()
+    Boolean(process.env.ROLLUP_WATCH) && serve()
   ]
 }
