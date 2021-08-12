@@ -1,7 +1,7 @@
-import pkg from './package.json'
 import buble from '@rollup/plugin-buble'
 import serve from 'rollup-plugin-serve'
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from 'rollup-plugin-terser'
+import pkg from './package.json'
 
 export default {
   input: pkg.main.replace('.min.', '.'),
@@ -13,7 +13,7 @@ export default {
   },
   plugins: [
     buble(),
-    uglify(),
+    terser(),
     Boolean(process.env.ROLLUP_WATCH) && serve()
   ]
 }
