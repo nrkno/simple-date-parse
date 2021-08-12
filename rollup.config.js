@@ -1,5 +1,5 @@
 import pkg from './package.json'
-import buble from 'rollup-plugin-buble'
+import buble from '@rollup/plugin-buble'
 import serve from 'rollup-plugin-serve'
 import { uglify } from 'rollup-plugin-uglify'
 
